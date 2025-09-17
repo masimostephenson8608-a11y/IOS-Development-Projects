@@ -53,9 +53,13 @@ var valuesIndex = 0
             if let conversion1 = Double(values[index - operationsUsed]),
                let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                 replacement = conversion1 / conversion2
+                print("\(conversion1) divided by \(conversion2) = \(replacement)")
+                print("Index:", index)
             } else { print("Failed") }
             
             if values.count > 1 {
+                print("Index:", index)
+
                 values.remove(at: index - operationsUsed)
                 values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
             } else {
@@ -70,10 +74,14 @@ var valuesIndex = 0
                 values.append(String(replacement))
             }
             operationsUsed += 1
+            
+
+                // ERROR IN DIVISION
         case .multiplication:                 // MULTIPLICATION CASE
             if let conversion1 = Double(values[index - operationsUsed]),
                let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                 replacement = conversion1 * conversion2
+                print("\(conversion1) times \(conversion2) = \(replacement)")
             } else { print("Failed") }
             
             if values.count > 1 {
@@ -91,56 +99,81 @@ var valuesIndex = 0
                 values.append(String(replacement))
             }
             operationsUsed += 1
+
             
-                                                                        // END SWITCH-STATEMENT FOR MULT AND DIVISION
+            
+            // END SWITCH-STATEMENT FOR MULT AND DIVISION
+            
         default:
             0
         }
+    }
+    operations.removeAll(where: { $0 == .multiplication || $0 == .division})
+    
+    var newOperationsUsed = 0
+    
+    for (index, opp) in operations.enumerated() {
+
         switch opp {
         case .addition:
-            if let conversion1 = Double(values[index - operationsUsed]),
-               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+
+            if let conversion1 = Double(values[index - newOperationsUsed]),
+               let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                 replacement = conversion1 + conversion2
+                print("\(conversion1) plus \(conversion2) = \(replacement)")
             } else { print("Failed") }
             
             if values.count > 1 {
-                values.remove(at: index - operationsUsed)
-                values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+                values.remove(at: index - newOperationsUsed)
+                values.remove(at: index - newOperationsUsed)                //REMOVING ELEMENTS IN values
             } else {
                 values.removeLast()
             }
             
             
-            if values.indices.contains(index - operationsUsed) {
+            if values.indices.contains(index - newOperationsUsed) {
                 values.insert(String(replacement),
-                              at: index - operationsUsed)
+                              at: index - newOperationsUsed)
+
+
             } else {
                 values.append(String(replacement))
-            }
-            operationsUsed += 1
 
+            }
+            newOperationsUsed += 1
+
+            
+            
         case .subtraction:
-            if let conversion1 = Double(values[index - operationsUsed]),
-               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+
+            print(operations)
+            if let conversion1 = Double(values[index - newOperationsUsed]),
+               let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                 replacement = conversion1 - conversion2
+                print("\(conversion1) minus \(conversion2) = \(replacement)")
             } else { print("Failed") }
             
             if values.count > 1 {
-                values.remove(at: index - operationsUsed)
-                values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+                values.remove(at: index - newOperationsUsed)
+                values.remove(at: index - newOperationsUsed)                //REMOVING ELEMENTS IN values
             } else {
                 values.removeLast()
             }
             
             
-            if values.indices.contains(index - operationsUsed) {
+            if values.indices.contains(index - newOperationsUsed) {
                 values.insert(String(replacement),
-                              at: index - operationsUsed)
+                              at: index - newOperationsUsed)
+
             } else {
                 values.append(String(replacement))
-            }
-            operationsUsed += 1
 
+            }
+            newOperationsUsed += 1
+
+            
+
+            
         default:
             0
         }
@@ -148,36 +181,7 @@ var valuesIndex = 0
 }
 
 
-/// TESTING DIVISION
-//buttonPressed(9)
-//buttonPressed(8)
-//decimalButton()
-//operationPressed(.multiplication)
-//buttonPressed(2)
-//operationPressed(.addition)
-//buttonPressed(5)
-//buttonPressed(4)
-//decimalButton()
-//buttonPressed(8)
-//operationPressed(.division)
-//operationPressed(.division)
-//buttonPressed(2)
-//operationPressed(.addition)
-//buttonPressed(9)
-//buttonPressed(9)
-//operationPressed(.division)
-//buttonPressed(1)
-//buttonPressed(0)
-//print(values)
-//equals()
-//print(values)
-
-
 /// TESTING MULTIPLICATION
-//buttonPressed(9)
-//buttonPressed(8)
-//decimalButton()
-//operationPressed(.addition)
 //buttonPressed(5)
 //buttonPressed(4)
 //decimalButton()
@@ -185,9 +189,6 @@ var valuesIndex = 0
 //operationPressed(.multiplication)
 //operationPressed(.division)
 //buttonPressed(2)
-//operationPressed(.addition)
-//buttonPressed(9)
-//buttonPressed(9)
 //operationPressed(.multiplication)
 //buttonPressed(1)
 //buttonPressed(0)
@@ -217,3 +218,27 @@ var valuesIndex = 0
 //equals()
 //print(values)
 
+/// TESTING ALL OF IT
+//buttonPressed(1)
+//buttonPressed(0)
+//buttonPressed(0)
+//operationPressed(.multiplication)
+//buttonPressed(1)
+//buttonPressed(0)
+//
+//operationPressed(.addition)
+//
+//buttonPressed(1)
+//buttonPressed(0)
+//operationPressed(.multiplication)
+//buttonPressed(1)
+//buttonPressed(0)
+//
+//operationPressed(.subtraction)
+//
+//buttonPressed(5)
+//buttonPressed(0)
+//operationPressed(.division)
+//buttonPressed(6)
+//print(values)
+//equals()
