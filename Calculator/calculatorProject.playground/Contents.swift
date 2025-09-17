@@ -48,52 +48,101 @@ var valuesIndex = 0
     var operationsUsed = 0
     for (index, opp) in operations.enumerated() {
         
-        if opp == .multiplication || opp == .division {
+        switch opp {                                   // SWITCH STATEMENT FOR MULTIPLICATION AND DIVISION ONLY
+        case .division:
+            if let conversion1 = Double(values[index - operationsUsed]),
+               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+                replacement = conversion1 / conversion2
+            } else { print("Failed") }
             
-            if opp == .division {                               // BEGIN IF-STATEMENT FOR DIVISION
-                
-                if let conversion1 = Double(values[index - operationsUsed]),
-                   let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
-                    replacement = conversion1 / conversion2
-                } else { print("Failed") }
-                
-                if values.count > 1 {
-                    values.remove(at: index - operationsUsed)
-                    values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
-                } else {
-                    values.removeLast()
-                }
-                
-                
-                if values.indices.contains(index - operationsUsed) {
-                    values.insert(String(replacement),
-                                  at: index - operationsUsed)
-                } else {
-                    values.append(String(replacement))
-                }
-                operationsUsed += 1
-            } else if opp == .multiplication {                 // BEGIN IF-STATEMENT FOR MULTIPLICATION
-                if let conversion1 = Double(values[index - operationsUsed]),
-                   let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
-                    replacement = conversion1 * conversion2
-                } else { print("Failed") }
-                
-                if values.count > 1 {
-                    values.remove(at: index - operationsUsed)
-                    values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
-                } else {
-                    values.removeLast()
-                }
-                
-                
-                if values.indices.contains(index - operationsUsed) {
-                    values.insert(String(replacement),
-                                  at: index - operationsUsed)
-                } else {
-                    values.append(String(replacement))
-                }
-                operationsUsed += 1
+            if values.count > 1 {
+                values.remove(at: index - operationsUsed)
+                values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+            } else {
+                values.removeLast()
             }
+            
+            
+            if values.indices.contains(index - operationsUsed) {
+                values.insert(String(replacement),
+                              at: index - operationsUsed)
+            } else {
+                values.append(String(replacement))
+            }
+            operationsUsed += 1
+        case .multiplication:                 // MULTIPLICATION CASE
+            if let conversion1 = Double(values[index - operationsUsed]),
+               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+                replacement = conversion1 * conversion2
+            } else { print("Failed") }
+            
+            if values.count > 1 {
+                values.remove(at: index - operationsUsed)
+                values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+            } else {
+                values.removeLast()
+            }
+            
+            
+            if values.indices.contains(index - operationsUsed) {
+                values.insert(String(replacement),
+                              at: index - operationsUsed)
+            } else {
+                values.append(String(replacement))
+            }
+            operationsUsed += 1
+            
+                                                                        // END SWITCH-STATEMENT FOR MULT AND DIVISION
+        default:
+            0
+        }
+        switch opp {
+        case .addition:
+            if let conversion1 = Double(values[index - operationsUsed]),
+               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+                replacement = conversion1 + conversion2
+            } else { print("Failed") }
+            
+            if values.count > 1 {
+                values.remove(at: index - operationsUsed)
+                values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+            } else {
+                values.removeLast()
+            }
+            
+            
+            if values.indices.contains(index - operationsUsed) {
+                values.insert(String(replacement),
+                              at: index - operationsUsed)
+            } else {
+                values.append(String(replacement))
+            }
+            operationsUsed += 1
+
+        case .subtraction:
+            if let conversion1 = Double(values[index - operationsUsed]),
+               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+                replacement = conversion1 - conversion2
+            } else { print("Failed") }
+            
+            if values.count > 1 {
+                values.remove(at: index - operationsUsed)
+                values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+            } else {
+                values.removeLast()
+            }
+            
+            
+            if values.indices.contains(index - operationsUsed) {
+                values.insert(String(replacement),
+                              at: index - operationsUsed)
+            } else {
+                values.append(String(replacement))
+            }
+            operationsUsed += 1
+
+        default:
+            0
         }
     }
 }
@@ -103,6 +152,8 @@ var valuesIndex = 0
 //buttonPressed(9)
 //buttonPressed(8)
 //decimalButton()
+//operationPressed(.multiplication)
+//buttonPressed(2)
 //operationPressed(.addition)
 //buttonPressed(5)
 //buttonPressed(4)
@@ -143,3 +194,26 @@ var valuesIndex = 0
 //print(values)
 //equals()
 //print(values)
+
+/// TESTING ADDITION AND SUBTRACTION
+//buttonPressed(9)
+//buttonPressed(8)
+//decimalButton()
+//operationPressed(.addition)
+//buttonPressed(5)
+//buttonPressed(4)
+//decimalButton()
+//buttonPressed(8)
+//operationPressed(.subtraction)
+//operationPressed(.addition)
+//buttonPressed(2)
+//operationPressed(.addition)
+//buttonPressed(9)
+//buttonPressed(9)
+//operationPressed(.subtraction)
+//buttonPressed(1)
+//buttonPressed(0)
+//print(values)
+//equals()
+//print(values)
+
