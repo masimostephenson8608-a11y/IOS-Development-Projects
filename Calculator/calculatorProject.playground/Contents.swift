@@ -10,6 +10,9 @@ var valuesIndex = 0
 
 
 @MainActor func buttonPressed(_ number : Int) {
+    if values.indices.contains(valuesIndex) == false {
+        values.append("")
+    }
     switch number {
     case 0...9:
         values[valuesIndex] += String(number)
@@ -24,14 +27,15 @@ var valuesIndex = 0
 
 
 @MainActor func operationPressed(_ opp: Operation) {
-    if opp == .clear {                                      // CLEARING THE ARRAYS AND INDEX
-        values.removeAll()
-        operations.removeAll()
-        valuesIndex = 0
-    } else {                                    // APPENDING NEW EMPTY VALUE TO VALUES AND INCREASING INDEX
-        values.append("")
-        operations.append(opp)
-        valuesIndex += 1
+    if operations.count < values.count {
+        if opp == .clear {                                      // CLEARING THE ARRAYS AND INDEX
+            values.removeAll()
+            operations.removeAll()
+            valuesIndex = 0
+        } else {                                    // APPENDING NEW EMPTY VALUE TO VALUES AND INCREASING INDEX
+            operations.append(opp)
+            valuesIndex += 1
+        }
     }
 }
 
@@ -80,8 +84,7 @@ var valuesIndex = 0
 //operationPressed(.addition)
 //buttonPressed(5)
 //buttonPressed(4)
-//print(valuesIndex)
-//print(values)
+//operationPressed(.division)
 //operationPressed(.division)
 //buttonPressed(2)
 //operationPressed(.addition)
