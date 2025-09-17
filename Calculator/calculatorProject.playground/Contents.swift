@@ -27,20 +27,21 @@ var valuesIndex = 0
 
 
 @MainActor func operationPressed(_ opp: Operation) {
-    if operations.count < values.count {
-        if opp == .clear {                                      // CLEARING THE ARRAYS AND INDEX
-            values.removeAll()
-            operations.removeAll()
-            valuesIndex = 0
-        } else {                                    // APPENDING NEW EMPTY VALUE TO VALUES AND INCREASING INDEX
-            operations.append(opp)
-            valuesIndex += 1
-        }
+    if opp == .clear {                                      // CLEARING THE ARRAYS AND INDEX
+        values.removeAll()
+        operations.removeAll()
+        valuesIndex = 0
+    } else if operations.count < values.count {
+        operations.append(opp)
+        valuesIndex += 1
     }
 }
 
 @MainActor func equals() {
     var replacement: Double = 0
+    if values.isEmpty {
+        return
+    }
     if values.last == "" {                          // CHECKING TO SEE IF values LAST ELEMENT IS EMPTY
         values.remove(at: values.count - 1)
         valuesIndex -= 1
@@ -54,11 +55,9 @@ var valuesIndex = 0
                let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                 replacement = conversion1 / conversion2
                 print("\(conversion1) divided by \(conversion2) = \(replacement)")
-                print("Index:", index)
             } else { print("Failed") }
             
             if values.count > 1 {
-                print("Index:", index)
 
                 values.remove(at: index - operationsUsed)
                 values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
@@ -75,11 +74,9 @@ var valuesIndex = 0
             }
             operationsUsed += 1
             
-
-                // ERROR IN DIVISION
         case .multiplication:                 // MULTIPLICATION CASE
             if let conversion1 = Double(values[index - operationsUsed]),
-               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+               let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR MULTIPLICATION
                 replacement = conversion1 * conversion2
                 print("\(conversion1) times \(conversion2) = \(replacement)")
             } else { print("Failed") }
@@ -118,7 +115,7 @@ var valuesIndex = 0
         case .addition:
 
             if let conversion1 = Double(values[index - newOperationsUsed]),
-               let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+               let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR ADDITION
                 replacement = conversion1 + conversion2
                 print("\(conversion1) plus \(conversion2) = \(replacement)")
             } else { print("Failed") }
@@ -147,7 +144,7 @@ var valuesIndex = 0
         case .subtraction:
 
             if let conversion1 = Double(values[index - newOperationsUsed]),
-               let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+               let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR SUBTRACTION
                 replacement = conversion1 - conversion2
                 print("\(conversion1) minus \(conversion2) = \(replacement)")
             } else { print("Failed") }
@@ -191,11 +188,11 @@ var valuesIndex = 0
 //operationPressed(.multiplication)
 //buttonPressed(1)
 //buttonPressed(0)
-//print(values)
 //equals()
-//print(values)
-
-/// TESTING ADDITION AND SUBTRACTION
+//print("Result =", values[0])
+//operationPressed(.clear)
+//
+///// TESTING ADDITION AND SUBTRACTION
 //buttonPressed(9)
 //buttonPressed(8)
 //decimalButton()
@@ -213,11 +210,11 @@ var valuesIndex = 0
 //operationPressed(.subtraction)
 //buttonPressed(1)
 //buttonPressed(0)
-//print(values)
 //equals()
-//print(values)
-
-/// TESTING ALL OF IT
+//print("Result =", values[0])
+//operationPressed(.clear)
+//
+///// TESTING ALL OF IT
 //buttonPressed(1)
 //buttonPressed(0)
 //buttonPressed(0)
@@ -239,5 +236,5 @@ var valuesIndex = 0
 //buttonPressed(0)
 //operationPressed(.division)
 //buttonPressed(1)
-//print(values)
 //equals()
+//print("Result =", values[0])
