@@ -50,11 +50,32 @@ var valuesIndex = 0
         
         if opp == .multiplication || opp == .division {
             
-            if opp == .division {                               // BEGIN FOR-IN LOOP FOR MULT AND DIVISION
+            if opp == .division {                               // BEGIN IF-STATEMENT FOR DIVISION
                 
                 if let conversion1 = Double(values[index - operationsUsed]),
                    let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                     replacement = conversion1 / conversion2
+                } else { print("Failed") }
+                
+                if values.count > 1 {
+                    values.remove(at: index - operationsUsed)
+                    values.remove(at: index - operationsUsed)                //REMOVING ELEMENTS IN values
+                } else {
+                    values.removeLast()
+                }
+                
+                
+                if values.indices.contains(index - operationsUsed) {
+                    values.insert(String(replacement),
+                                  at: index - operationsUsed)
+                } else {
+                    values.append(String(replacement))
+                }
+                operationsUsed += 1
+            } else if opp == .multiplication {                 // BEGIN IF-STATEMENT FOR MULTIPLICATION
+                if let conversion1 = Double(values[index - operationsUsed]),
+                   let conversion2 = Double(values[index + 1 - operationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
+                    replacement = conversion1 * conversion2
                 } else { print("Failed") }
                 
                 if values.count > 1 {
@@ -81,9 +102,12 @@ var valuesIndex = 0
 /// TESTING DIVISION
 //buttonPressed(9)
 //buttonPressed(8)
+//decimalButton()
 //operationPressed(.addition)
 //buttonPressed(5)
 //buttonPressed(4)
+//decimalButton()
+//buttonPressed(8)
 //operationPressed(.division)
 //operationPressed(.division)
 //buttonPressed(2)
@@ -91,6 +115,29 @@ var valuesIndex = 0
 //buttonPressed(9)
 //buttonPressed(9)
 //operationPressed(.division)
+//buttonPressed(1)
+//buttonPressed(0)
+//print(values)
+//equals()
+//print(values)
+
+
+/// TESTING MULTIPLICATION
+//buttonPressed(9)
+//buttonPressed(8)
+//decimalButton()
+//operationPressed(.addition)
+//buttonPressed(5)
+//buttonPressed(4)
+//decimalButton()
+//buttonPressed(8)
+//operationPressed(.multiplication)
+//operationPressed(.division)
+//buttonPressed(2)
+//operationPressed(.addition)
+//buttonPressed(9)
+//buttonPressed(9)
+//operationPressed(.multiplication)
 //buttonPressed(1)
 //buttonPressed(0)
 //print(values)
