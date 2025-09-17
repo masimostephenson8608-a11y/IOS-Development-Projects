@@ -146,7 +146,6 @@ var valuesIndex = 0
             
         case .subtraction:
 
-            print(operations)
             if let conversion1 = Double(values[index - newOperationsUsed]),
                let conversion2 = Double(values[index + 1 - newOperationsUsed]) {        // UNWRAPPING ELEMENTS FOR DIVISION
                 replacement = conversion1 - conversion2
@@ -239,6 +238,6 @@ var valuesIndex = 0
 //buttonPressed(5)
 //buttonPressed(0)
 //operationPressed(.division)
-//buttonPressed(6)
+//buttonPressed(1)
 //print(values)
 //equals()
