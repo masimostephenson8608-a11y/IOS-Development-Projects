@@ -1,7 +1,7 @@
 import UIKit
 
 enum Operation {
-    case addition, subtraction, multiplication, division, clear
+    case addition, subtraction, multiplication, division, clear, percentage
 }
 
 var values: [String] = [""]
@@ -31,20 +31,49 @@ var valuesIndex = 0
         values.removeAll()
         operations.removeAll()
         valuesIndex = 0
+    } else if opp == .percentage {
+        if values.indices.contains(valuesIndex) {
+            if let number = Double(values[valuesIndex]) {
+                values[valuesIndex] = String(number / 100)
+            } else { print("failed") }
+        }
     } else if operations.count < values.count {
         operations.append(opp)
         valuesIndex += 1
     }
 }
 
+@MainActor func negative() {
+    if values.indices.contains(valuesIndex) && values[valuesIndex].contains("-") {
+        values[valuesIndex].removeFirst()
+        return
+    }
+    if values.indices.contains(valuesIndex) && values[valuesIndex].contains("-") == false {
+        values[valuesIndex] = "-" + values[valuesIndex]
+    } else if values.indices.contains(valuesIndex) == false {
+        values.append("-")
+    }
+}
+
 @MainActor func equals() {
     var replacement: Double = 0
+    if operations.count == values.count {
+        operations.removeLast()
+    }
+    for (x, y) in values.enumerated() {
+        if y.contains("-") && y.count == 1 {
+            values[x].removeAll()
+        }
+    }
     if values.isEmpty {
         return
     }
-    if values.last == "" {                          // CHECKING TO SEE IF values LAST ELEMENT IS EMPTY
-        values.remove(at: values.count - 1)
-        valuesIndex -= 1
+
+    for (x, y) in values.enumerated() {         // CHECKING TO SEE IF ANY ELEMENTS ARE EMPTY
+        if y == "" {
+            values.remove(at: x)
+            valuesIndex -= 1
+        }
     }
     var operationsUsed = 0
     for (index, opp) in operations.enumerated() {
@@ -176,6 +205,16 @@ var valuesIndex = 0
     }
 }
 
+/// TESTING PERCENTAGE
+//buttonPressed(1)
+//buttonPressed(5)
+//operationPressed(.percentage)
+//print(values)
+
+/// TESTING SIGN INVERT
+//buttonPressed(1)
+//operationPressed(.negative)
+//print(values)
 
 /// TESTING MULTIPLICATION
 //buttonPressed(5)
@@ -234,7 +273,13 @@ var valuesIndex = 0
 //
 //buttonPressed(5)
 //buttonPressed(0)
+//operationPressed(.percentage)
 //operationPressed(.division)
-//buttonPressed(1)
+//buttonPressed(2)
+//operationPressed(.multiplication)
+//print(values.count)
+//print(operations.count)
+//print(values)
+//print(operations)
 //equals()
 //print("Result =", values[0])
