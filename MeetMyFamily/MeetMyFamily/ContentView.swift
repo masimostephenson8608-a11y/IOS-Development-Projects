@@ -30,12 +30,17 @@ struct FamilyMember {
 }
 
 struct ContentView: View {
-    
+    @State private var hideDami = true
+    @State private var hideDami = true
+    @State private var hideDami = true
+    @State private var hideDami = true
     
     var body: some View {
         NavigationStack {
             VStack {
                 HStack {
+                    Spacer()
+
                     NavigationLink(destination: MoreInfoView(person: FamilyMember.Mariana)) {
                         VStack {
                             Image(.mariana).resizable()
@@ -62,21 +67,55 @@ struct ContentView: View {
                      .frame(maxWidth: 180, maxHeight: 200)
                         .background(Rectangle().frame(width: 180, height: 225))
                         .padding(5)
+                    Spacer()
+                }
+                
+                .padding(.horizontal, 40)
+                .padding(.vertical, 15)
+                HStack {
+                    Spacer()
+
+                    NavigationLink(destination: MoreInfoView(person: FamilyMember.Giovana)) {
+                        VStack {
+                            Image(systemName: "person.fill.xmark").resizable()
+                                .scaledToFit()
+                                .foregroundStyle(.white)
+                                .padding(.vertical, 34)
+                            Text(FamilyMember.Giovana.name,).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                        }
+                    }
+                    .frame(maxWidth: 180, maxHeight: 200)
+                    .background(Rectangle().frame(width: 180, height: 225))
+                    .padding(5)
                     
+                    Spacer()
+                    
+                    NavigationLink(destination: MoreInfoView(person: FamilyMember.Damiana)) {
+                        VStack {
+                            Image(.damiana).resizable()
+                                .scaledToFit()
+                            Text(FamilyMember.Damiana.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                        }
+                    }
+                    .frame(maxWidth: 180, maxHeight: 200)
+                    .background(Rectangle().frame(width: 180, height: 225))
+                    .padding(5)
+                    Spacer()
+
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 15)
                 HStack {
-                    //                Rectangle().frame(width: 180, height: 225)
-                    //                Spacer()
-                    //                Rectangle().frame(width: 180, height: 225)
-                }
-                .padding(.horizontal, 40)
-                .padding(.vertical, 15)
-                HStack {
-                    //                Rectangle().frame(width: 180, height: 225)
-                    //                Spacer()
-                    //                Rectangle().frame(width: 180, height: 225)
+                    NavigationLink(destination: MoreInfoView(person: FamilyMember.Masimo)) {
+                        VStack {
+                            Image(.masimo).resizable()
+                                .scaledToFit()
+                            Text(FamilyMember.Masimo.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                        }
+                    }
+                    .frame(maxWidth: 180, maxHeight: 200)
+                    .background(Rectangle().frame(width: 180, height: 225))
+                    .padding(5)
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 15)
