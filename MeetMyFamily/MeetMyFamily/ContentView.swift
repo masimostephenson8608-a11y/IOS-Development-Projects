@@ -30,28 +30,39 @@ struct FamilyMember {
 }
 
 struct ContentView: View {
-    @State private var hideDami = true
-    @State private var hideDami = true
-    @State private var hideDami = true
-    @State private var hideDami = true
+    @State var showDami = false
+    @State var showGio = false
+    @State var showMasimo = false
+    @State var showKyle = false
+    @State var showMariana = false
+
     
     var body: some View {
         NavigationStack {
             VStack {
                 HStack {
                     Spacer()
-
+                    
                     NavigationLink(destination: MoreInfoView(person: FamilyMember.Mariana)) {
                         VStack {
+                            
                             Image(.mariana).resizable()
                                 .scaledToFit()
-                            Text(FamilyMember.Mariana.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                            HStack {
+                                Text(FamilyMember.Mariana.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                                if showMariana == true {
+                                    Image(systemName: "checkmark")
+                                } else {
+                                    Image(systemName: "checkmark").hidden()
+                                }
+                            }
                         }
                     }
                     .frame(maxWidth: 180, maxHeight: 200)
                     .background(Rectangle().frame(width: 180, height: 225))
                     .padding(5)
-                    
+                    .simultaneousGesture(TapGesture().onEnded({ showMariana = true }))
+                
                     
                     Spacer()
                     
