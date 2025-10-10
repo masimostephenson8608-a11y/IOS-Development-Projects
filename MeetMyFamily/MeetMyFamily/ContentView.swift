@@ -72,18 +72,29 @@ struct ContentView: View {
                                 .scaledToFit()
                                 .foregroundStyle(.white)
                                 .padding(.vertical, 34)
-                            Text(FamilyMember.Kyle.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                            HStack {
+                                Text(FamilyMember.Kyle.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                                if showKyle == true {
+                                    Image(systemName: "checkmark")
+                                } else {
+                                    Image(systemName: "checkmark").hidden()
+                                }
+
+                            }
                         }
                     }
                      .frame(maxWidth: 180, maxHeight: 200)
                         .background(Rectangle().frame(width: 180, height: 225))
                         .padding(5)
+                        .simultaneousGesture(TapGesture().onEnded({ showKyle = true }))
+
                     Spacer()
                 }
                 
                 .padding(.horizontal, 40)
                 .padding(.vertical, 15)
                 HStack {
+                    
                     Spacer()
 
                     NavigationLink(destination: MoreInfoView(person: FamilyMember.Giovana)) {
@@ -92,12 +103,20 @@ struct ContentView: View {
                                 .scaledToFit()
                                 .foregroundStyle(.white)
                                 .padding(.vertical, 34)
-                            Text(FamilyMember.Giovana.name,).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                            HStack {
+                                Text(FamilyMember.Giovana.name,).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                                if showGio == true {
+                                    Image(systemName: "checkmark")
+                                } else {
+                                    Image(systemName: "checkmark").hidden()
+                                }
+                            }
                         }
                     }
                     .frame(maxWidth: 180, maxHeight: 200)
                     .background(Rectangle().frame(width: 180, height: 225))
                     .padding(5)
+                    .simultaneousGesture(TapGesture().onEnded({ showGio = true }))
                     
                     Spacer()
                     
@@ -105,12 +124,20 @@ struct ContentView: View {
                         VStack {
                             Image(.damiana).resizable()
                                 .scaledToFit()
-                            Text(FamilyMember.Damiana.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                            HStack {
+                                Text(FamilyMember.Damiana.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                                if showDami == true {
+                                    Image(systemName: "checkmark")
+                                } else {
+                                    Image(systemName: "checkmark").hidden()
+                                }
+                            }
                         }
                     }
                     .frame(maxWidth: 180, maxHeight: 200)
                     .background(Rectangle().frame(width: 180, height: 225))
                     .padding(5)
+                    .simultaneousGesture(TapGesture().onEnded({ showDami = true }))
                     Spacer()
 
                 }
@@ -121,12 +148,20 @@ struct ContentView: View {
                         VStack {
                             Image(.masimo).resizable()
                                 .scaledToFit()
-                            Text(FamilyMember.Masimo.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                            HStack {
+                                Text(FamilyMember.Masimo.name).font(.headline.weight(.heavy)).foregroundStyle(.white)
+                                if showMasimo == true {
+                                    Image(systemName: "checkmark")
+                                } else {
+                                    Image(systemName: "checkmark").hidden()
+                                }
+                            }
                         }
                     }
                     .frame(maxWidth: 180, maxHeight: 200)
                     .background(Rectangle().frame(width: 180, height: 225))
                     .padding(5)
+                    .simultaneousGesture(TapGesture().onEnded({ showMasimo = true }))
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 15)
