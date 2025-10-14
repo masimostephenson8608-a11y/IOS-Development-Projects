@@ -4,6 +4,7 @@
 //
 //  Created by Masimo Stephenson on 10/14/25.
 //
+import Observation
 
 import Foundation
 
@@ -64,7 +65,8 @@ enum Dessert: String {
     case LemonTart = "Lemon Tart"
 }
 
-struct QuizManager {
+@Observable
+class QuizManager {
     var currentQuestion = 0
     var selectedAnswers: [Answer] = []
     let questionList: [Question] =  [
@@ -108,7 +110,7 @@ struct QuizManager {
             )
     ]
     
-    mutating func selectAnswer(_ answer: Answer) {
+     func selectAnswer(_ answer: Answer) {
         selectedAnswers.append(answer)
     }
     

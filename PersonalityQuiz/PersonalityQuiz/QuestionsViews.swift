@@ -9,46 +9,46 @@ import SwiftUI
 
 /* `TitleView`, `QuestionFlowView`, `RangedQuestionSubview`, `MultipleQuestionSubview`, `SingleQuestionSubview`, and `ResultsView`. `QuestionFlowView` */
 
-struct QuestionsView: View {
-    var body: some View {
-        Text("hi")
-    }
-}
-
 struct QuestionFlowView: View {
     var body: some View {
-        Text("hi")
+        SingleQuestionSubview(question: "HI", Options: ["1", "2", "3", "4"])
     }
 }
 
 struct RangedQuestionSubview: View {
+    @Environment(QuizManager.self) var manager
     let question: String
     @State private var rangeAnswer = 0.0
     var body: some View {
         ZStack {
-            BackgroundView()
-            VStack {
-                Text(question).font(.headline)
-                    .foregroundStyle(.white.secondary)
-                    .padding(10)
-                Text(
-                    "\(rangeAnswer.formatted(.number.precision(.fractionLength(0)))) out of 10"
-                )
-                .foregroundStyle(.white)
-                .font(.title2).bold()
-                Slider(value: $rangeAnswer, in: 0...10, step: 1.0) {
-                    Text("Range")
-                } minimumValueLabel: {
-                    Text("0")
-                } maximumValueLabel: {
-                    Text("10")
-                }
-                .onChange(of: rangeAnswer) {
-                    rangeAnswer = rangeAnswer.rounded()
-                }
-                .tint(.white)
-                .frame(maxWidth: .infinity)
-            }.padding(.horizontal, 40)
+            NavigationStack {
+                BackgroundView()
+                VStack {
+                    Text(question).font(.headline)
+                        .foregroundStyle(.white.secondary)
+                        .padding(10)
+                    Text(
+                        "\(rangeAnswer.formatted(.number.precision(.fractionLength(0)))) out of 10"
+                    )
+                    .foregroundStyle(.white)
+                    .font(.title2).bold()
+                    Slider(value: $rangeAnswer, in: 0...10, step: 1.0) {
+                        Text("Range")
+                    } minimumValueLabel: {
+                        Text("0")
+                    } maximumValueLabel: {
+                        Text("10")
+                    }
+                    .onChange(of: rangeAnswer) {
+                        rangeAnswer = rangeAnswer.rounded()
+                    }
+                    .tint(.white)
+                    .frame(maxWidth: .infinity)
+                }.padding(.horizontal, 40)
+            }
+            .toolbar {
+//                NavigationLink
+            }
         }
     }
 }
@@ -157,5 +157,9 @@ struct ResultsView: View {
 }
 
 #Preview {
-    RangedQuestionSubview(question: "Do you like pools?")
+//    RangedQuestionSubview( question: "Do you like pool?")
+}
+
+#Preview {
+    QuestionFlowView()
 }

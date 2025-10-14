@@ -13,8 +13,10 @@ struct PersonalityQuizApp: App {
         WindowGroup {
             ZStack {
                 BackgroundView()
-                TitleView()
+                RangedQuestionSubview(question: "Do you like the pool?")
+                
             }
+            .environment(QuizManager())
         }
     }
 }
