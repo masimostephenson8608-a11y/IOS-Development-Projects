@@ -9,14 +9,10 @@ import SwiftUI
 
 @main
 struct PersonalityQuizApp: App {
+    var manager = QuizManager()
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                BackgroundView()
-                RangedQuestionSubview(question: "Do you like the pool?")
-                
-            }
-            .environment(QuizManager())
-        }
+            TitleView()
+        }.environment(manager)
     }
 }

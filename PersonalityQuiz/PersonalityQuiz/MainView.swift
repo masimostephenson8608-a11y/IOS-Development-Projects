@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TitleView: View {
+    @Environment(QuizManager.self) var manager
     var body: some View {
         NavigationStack {
             ZStack {
@@ -24,9 +25,9 @@ struct TitleView: View {
             }
             .navigationTitle("")
             .toolbar {
-//                NavigationLink("Begin", destination: ))
+                NavigationLink("Begin", destination: QuestionFlowView())
             }
-        }
+        }.environment(manager)
     }
 }
 

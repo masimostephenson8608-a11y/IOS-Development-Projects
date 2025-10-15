@@ -18,44 +18,44 @@ enum QuestionType {
     case singleChoice, multipleChoice, rangedQuestion
 }
 
-struct Answer {
+struct Answer: Hashable {
     var dessert: Dessert
     var text: String
 
-    static var possibilities = [
-        Answer(
-            dessert: .IceCream,
-            text:
-                """
-                The Classic Optimist
-                You value comfort and consistency. You’re easy to be around and always find joy in the little things. Everyone feels calmer when you’re around.
-                """
-        ),
-        Answer(
-            dessert: .Brownie,
-            text:
-                """
-                The Loyal Friend
-                Warm, grounded, and dependable — you’re everyone’s favorite person to talk to. You bring comfort and stability to any situation.
-                """
-        ),
-        Answer(
-            dessert: .StrawberryMacaron,
-            text:
-                """
-                The Social Butterfly
-                You love excitement, connection, and trying new things. You’ve got an infectious energy that draws people in wherever you go.
-                """
-        ),
-        Answer(
-            dessert: .LemonTart,
-            text:
-                """
-                            The Bold Dreamer
-                            You live for creativity and adventure. Your confidence and zest for life make you unforgettable — and maybe a little unpredictable.
-                """
-        ),
-    ]
+//    static var possibilities = [
+//        Answer(
+//            dessert: .IceCream,
+//            text:
+//                """
+//                The Classic Optimist
+//                You value comfort and consistency. You’re easy to be around and always find joy in the little things. Everyone feels calmer when you’re around.
+//                """
+//        ),
+//        Answer(
+//            dessert: .Brownie,
+//            text:
+//                """
+//                The Loyal Friend
+//                Warm, grounded, and dependable — you’re everyone’s favorite person to talk to. You bring comfort and stability to any situation.
+//                """
+//        ),
+//        Answer(
+//            dessert: .StrawberryMacaron,
+//            text:
+//                """
+//                The Social Butterfly
+//                You love excitement, connection, and trying new things. You’ve got an infectious energy that draws people in wherever you go.
+//                """
+//        ),
+//        Answer(
+//            dessert: .LemonTart,
+//            text:
+//                """
+//                            The Bold Dreamer
+//                            You live for creativity and adventure. Your confidence and zest for life make you unforgettable — and maybe a little unpredictable.
+//                """
+//        ),
+//    ]
 }
 
 enum Dessert: String {
