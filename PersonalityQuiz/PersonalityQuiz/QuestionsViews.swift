@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-/* `TitleView`, `QuestionFlowView`, `RangedQuestionSubview`, `MultipleQuestionSubview`, `SingleQuestionSubview`, and `ResultsView`. `QuestionFlowView` */
-
 struct QuestionFlowView: View {
     @Environment(QuizManager.self) var manager
     // put your class here
@@ -24,11 +22,9 @@ struct QuestionFlowView: View {
             case 3:
                 ResultsView()
             default:
-                TitleView()
+                ResultsView()
             }
-            // switch to decide what view to show based on current index
-        }.environment(manager)
-        // pass the env var here
+        }
     }
 }
 
@@ -73,8 +69,8 @@ struct RangedQuestionSubview: View {
                                 Int(rangeAnswer) - 1
                             ]
                         )
-                        manager.currentQuestion += 1
                         isDone = true
+                        manager.currentQuestion += 1
                     }
                 )
         }
@@ -115,7 +111,7 @@ struct SingleQuestionSubview: View {
         .navigationTitle("Dessert Quiz")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            NavigationLink("Done", destination: QuestionFlowView())
+            NavigationLink("Next", destination: QuestionFlowView())
                 .simultaneousGesture(
                     TapGesture().onEnded {
                         done = true
@@ -148,6 +144,9 @@ struct MultipleQuestionSubview: View {
         ZStack {
             BackgroundView()
             VStack {
+                Text(question.text).font(.headline)
+                    .foregroundStyle(.white.secondary)
+                    .padding(10)
                 ForEach(0..<question.answers.count, id: \.self) { count in
                     Toggle(
                         question.answers[count].text,
@@ -175,10 +174,10 @@ struct MultipleQuestionSubview: View {
                                             text: question.answers[index].text
                                         )
                                     )
-                                    manager.currentQuestion += 1
-                                    done = true
                                 }
+                                done = true
                             }
+                            manager.currentQuestion += 1
                         }
                     )
             }
@@ -188,33 +187,41 @@ struct MultipleQuestionSubview: View {
 
 struct ResultsView: View {
     @Environment(QuizManager.self) var manager
+    var mostCommonDessert: String {
+        let desserts = manager.selectedAnswers.map { $0.dessert.rawValue }
+
+        var countDict: [String: Int] = [:]
+        for dessert in desserts {
+            countDict[dessert, default: 0] += 1
+        }
+
+        return countDict.max(by: { $0.value < $1.value })?.key ?? ""
+    }
+
     var body: some View {
-        //        ZStack {
-        //            BackgroundView()
-        //            VStack {
-        //
-        //                Text(
-        //                    """
-        //                    YOU ARE...
-        //                    """
-        //                )
-        //                .foregroundStyle(.white.secondary)
-        //                .font(.largeTitle.weight(.heavy))
-        //                .multilineTextAlignment(.center)
-        //                Rectangle()
-        //                    .frame(height: 200).hidden()
-        //                Text("Result")
-        //                    .font(.title).bold()
-        //                    .foregroundStyle(.white)
-        //
-        //                Spacer()
-        //            }
-        //            .padding(.horizontal, 45)
-        //            .padding(.vertical, 80)
-        VStack {
-            ForEach(manager.selectedAnswers, id: \.self) {
-                text in Text(text.text)
+        ZStack {
+            BackgroundView()
+            VStack {
+
+                Text(
+                    """
+                    YOU ARE...
+                    """
+                )
+                .foregroundStyle(.white.secondary)
+                .font(.largeTitle.weight(.heavy))
+                .multilineTextAlignment(.center)
+                Rectangle()
+                    .frame(height: 200).hidden()
+                Text(mostCommonDessert)
+                    .font(.title).bold()
+                    .foregroundStyle(.white)
+
+                Spacer()
             }
+            .padding(.horizontal, 45)
+            .padding(.vertical, 80)
+            .navigationBarBackButtonHidden()
         }
     }
 }

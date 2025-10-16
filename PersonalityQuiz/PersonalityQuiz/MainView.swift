@@ -27,7 +27,7 @@ struct TitleView: View {
             .toolbar {
                 NavigationLink("Begin", destination: QuestionFlowView())
             }
-        }.environment(manager)
+        }
     }
 }
 
